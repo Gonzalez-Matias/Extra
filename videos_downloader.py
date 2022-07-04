@@ -19,8 +19,9 @@ bucket = s3.Bucket('anyoneai-datasets')
 i = 0
 for file in bucket.objects.filter(Prefix = 'shot-type/keyframes'):
     i += 1
-    if i > 8:
+    if i > 32:
         break
-    name = os.path.split(file.key.replace(".tar",".tgz"))[1]
-    with open(f'{name}', 'wb') as data:
-        bucket.download_fileobj(file.key, data)
+    if i > 24:
+        name = os.path.split(file.key.replace(".tar",".tgz"))[1]
+        with open(f'{name}', 'wb') as data:
+            bucket.download_fileobj(file.key, data)
